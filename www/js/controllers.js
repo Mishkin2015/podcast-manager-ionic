@@ -23,7 +23,7 @@ angular.module('starter.controllers', [])
   $scope.podcasts = Podcasts.allPodcasts();
 })
 
-.controller('SearchCtrl', function($scope, $stateParams, $ionicLoading, Podcasts){
+.controller('SearchCtrl', function($scope, $stateParams, $ionicLoading, $ionicListDelegate, Podcasts){
   $ionicLoading.show({template: 'Loading...'});
 
   Podcasts.searchPodcast($stateParams.term).then(function(response){
@@ -31,8 +31,18 @@ angular.module('starter.controllers', [])
     $ionicLoading.hide();
   }); 
 
+  $scope.sub = true;
+
   $scope.subscribe = function(podcast){
     Podcasts.subscribe(podcast);
+    $ionicListDelegate.closeOptionButtons();
+    $scope.sub = false;
+  }
+
+  $scope.unsubscribe = function(podcast){
+    Podcasts.unsubscribe(podcast);
+    $ionicListDelegate.closeOptionButtons();
+    $scope.sub = true; 
   }
 })
 

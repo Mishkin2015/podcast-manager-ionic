@@ -6,8 +6,11 @@
         <h2>{{podcast.name}}</h2>
         <i class="icon ion-chevron-right icon-accessory"></i>
 
-        <ion-option-button class="button-balanced" ng-click="subscribe(podcast)">
+        <ion-option-button class="button-balanced" ng-show="sub" ng-click="subscribe(podcast)">
           Subscribe
+        </ion-option-button>
+        <ion-option-button class="button-assertive" ng-show="!sub" ng-click="unsubscribe(podcast)">
+          Unsubscribe
         </ion-option-button>
       </ion-item>
     </ion-list>
