@@ -49,18 +49,25 @@ angular.module('starter.services', [])
 
 .factory("Podcasts", function($http){
 
-  var podcasts = [];
+  var podcasts = JSON.parse(window.localStorage.getItem("podcasts")) || [];
 
   return {
     allPodcasts: function(){
       return podcasts;
     },
     unsubscribe: function(podcast){
+      // podcasts.splice(podcasts.indexOf(podcast), 1);
+
       podcasts.splice(podcasts.indexOf(podcast), 1);
+      window.localStorage.setItem("podcasts", JSON.stringify(podcasts));
     },
     subscribe: function(podcast){
+      // podcast.id = podcasts.length;
+      // podcasts.push(podcast);
+
       podcast.id = podcasts.length;
       podcasts.push(podcast);
+      window.localStorage.setItem("podcasts", JSON.stringify(podcasts));
     },
     searchPodcast: function(term){
       var promise;
@@ -82,6 +89,7 @@ angular.module('starter.services', [])
     },
     getEpisodes: function(id){
       var username;
+      console.log(podcasts);
       for(var i=0; i<podcasts.length; i++){
         if(podcasts[i].id == id){
           username = podcasts[i].username;
