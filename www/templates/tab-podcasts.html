@@ -8,17 +8,17 @@
     <div class="row" ng-repeat="podcast in podcasts" ng-if="$index % 3 === 0">
       <div class="col col-33" ng-if="$index < podcasts.length">
         <a ng-href="#/tab/podcasts/{{podcasts[$index].id}}">
-          <img ng-src="{{podcasts[$index].img}}" width="100%"/>
+          <img ng-src="{{podcasts[$index].pictures.extra_large}}" width="100%"/>
         </a>
       </div>
       <div class="col col-33" ng-if="$index+1 < podcasts.length">
         <a ng-href="#/tab/podcasts/{{podcasts[$index+1].id}}">
-          <img ng-src="{{podcasts[$index+1].img}}" width="100%"/>
+          <img ng-src="{{podcasts[$index+1].pictures.extra_large}}" width="100%"/>
         </a>
       </div>
       <div class="col col-33" ng-if="$index+2 < podcasts.length">
         <a ng-href="#/tab/podcasts/{{podcasts[$index+2].id}}">
-          <img ng-src="{{podcasts[$index+2].img}}" width="100%"/>
+          <img ng-src="{{podcasts[$index+2].pictures.extra_large}}" width="100%"/>
         </a>
       </div>
     </div>

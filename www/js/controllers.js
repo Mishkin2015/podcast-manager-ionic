@@ -4,7 +4,7 @@ angular.module('starter.controllers', [])
   $scope.search = function(){
     $scope.data = {};
     $ionicPopup.show({
-      template: '<input type="Text" ng-model="data.term">',
+      template: '<input type="Text" ng-model="data.term" autofocus>',
       title: 'Search',
       scope: $scope,
       buttons: [
@@ -23,17 +23,27 @@ angular.module('starter.controllers', [])
   $scope.podcasts = Podcasts.allPodcasts();
 })
 
-.controller('SearchCtrl', function($scope, $stateParams, Podcasts){
+.controller('SearchCtrl', function($scope, $stateParams, $ionicLoading, Podcasts){
+  $ionicLoading.show({template: 'Loading...'});
+
   Podcasts.searchPodcast($stateParams.term).then(function(response){
     $scope.podcasts = response.data;
+    $ionicLoading.hide();
   }); 
+
+  $scope.subscribe = function(podcast){
+    Podcasts.subscribe(podcast);
+  }
 })
 
-.controller('PodcastEpisodesCtrl', function($scope, $stateParams, $http, Podcasts) {
+.controller('PodcastEpisodesCtrl', function($scope, $stateParams, $http, $ionicLoading, Podcasts) {
   $scope.podcastId = $stateParams.podcastId;
+
+  $ionicLoading.show({template: 'Loading...'});
 
   Podcasts.getEpisodes($stateParams.podcastId).then(function(response){
     $scope.episodes = response.data;
+    $ionicLoading.hide();
   });
 })
 

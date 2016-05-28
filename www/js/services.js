@@ -49,51 +49,24 @@ angular.module('starter.services', [])
 
 .factory("Podcasts", function($http){
 
-  var podcasts = [
-    {
-      id: 1,
-      username: "grokpodcast",
-      name: "Grok Podcast",
-      img: "http://is3.mzstatic.com/image/thumb/Music6/v4/3e/13/b3/3e13b374-3e2c-9fbb-5bce-dc04aa4bb6ca/source/600x600bb.jpg",
-      descript: "League of Ipsum dolor sit amet inhibitor ignite dodge reset pro strats BotRK support roam lag overstaying wraiths skintimidation instalock Elo hell gap closer. Map queue pentakill wolves counter gank smurf pentakill top skins bait jungle push AFK solo queue leash pentakill proc top dodge. Top inhib bronze smurf queue fog of war ARAM leash bronze bush report bruiser fountain nexus inhibitor dunk. Elixir 1v1 skintimidation golems solo queue bait ARAM lag pro banana ganks queue golems fog of war warding counter gank. Inhibitor ult doran's roam face check kite double buffs quadra top dunk assist fountain wraiths baron jungle. Vision troll red buff chase global instakill nexus roam doran's gap closer baron hue poke hue dragon mid top. Skillshot BotRK gap closer smurf chase League of Legends report wraiths CC fog of war face check wave chase quadrakill bruiser."
-    },
-    {
-      id: 2,
-      username: "nerdcastjovemnerd",
-      name: "Nerdcast",
-      img: "img/nerdcast.jpg",
-      descript: "League of Ipsum dolor sit amet inhibitor ignite dodge reset pro strats BotRK support roam lag overstaying wraiths skintimidation instalock Elo hell gap closer. Map queue pentakill wolves counter gank smurf pentakill top skins bait jungle push AFK solo queue leash pentakill proc top dodge. Top inhib bronze smurf queue fog of war ARAM leash bronze bush report bruiser fountain nexus inhibitor dunk. Elixir 1v1 skintimidation golems solo queue bait ARAM lag pro banana ganks queue golems fog of war warding counter gank. Inhibitor ult doran's roam face check kite double buffs quadra top dunk assist fountain wraiths baron jungle. Vision troll red buff chase global instakill nexus roam doran's gap closer baron hue poke hue dragon mid top. Skillshot BotRK gap closer smurf chase League of Legends report wraiths CC fog of war face check wave chase quadrakill bruiser."
-    },
-    {
-      id: 3,
-      username: "matandorobosgigantes",
-      name: "Matando Robos Gigantes",
-      img: "img/mrg.jpg",
-      descript: "League of Ipsum dolor sit amet inhibitor ignite dodge reset pro strats BotRK support roam lag overstaying wraiths skintimidation instalock Elo hell gap closer. Map queue pentakill wolves counter gank smurf pentakill top skins bait jungle push AFK solo queue leash pentakill proc top dodge. Top inhib bronze smurf queue fog of war ARAM leash bronze bush report bruiser fountain nexus inhibitor dunk. Elixir 1v1 skintimidation golems solo queue bait ARAM lag pro banana ganks queue golems fog of war warding counter gank. Inhibitor ult doran's roam face check kite double buffs quadra top dunk assist fountain wraiths baron jungle. Vision troll red buff chase global instakill nexus roam doran's gap closer baron hue poke hue dragon mid top. Skillshot BotRK gap closer smurf chase League of Legends report wraiths CC fog of war face check wave chase quadrakill bruiser."
-    },
-    {
-      id: 4,
-      username: "99vidas",
-      name: "99vidas",
-      img: "img/99vidas.jpg",
-      descript: "League of Ipsum dolor sit amet inhibitor ignite dodge reset pro strats BotRK support roam lag overstaying wraiths skintimidation instalock Elo hell gap closer. Map queue pentakill wolves counter gank smurf pentakill top skins bait jungle push AFK solo queue leash pentakill proc top dodge. Top inhib bronze smurf queue fog of war ARAM leash bronze bush report bruiser fountain nexus inhibitor dunk. Elixir 1v1 skintimidation golems solo queue bait ARAM lag pro banana ganks queue golems fog of war warding counter gank. Inhibitor ult doran's roam face check kite double buffs quadra top dunk assist fountain wraiths baron jungle. Vision troll red buff chase global instakill nexus roam doran's gap closer baron hue poke hue dragon mid top. Skillshot BotRK gap closer smurf chase League of Legends report wraiths CC fog of war face check wave chase quadrakill bruiser."
-    }
-  ];
+  var podcasts = [];
 
   return {
     allPodcasts: function(){
       return podcasts;
     },
-    remove: function(podcast){
+    unsubscribe: function(podcast){
       podcasts.splice(podcasts.indexOf(podcast), 1);
+    },
+    subscribe: function(podcast){
+      podcast.id = podcasts.length;
+      podcasts.push(podcast);
     },
     searchPodcast: function(term){
       var promise;
 
       if (!promise) {
         promise = $http.get("https://api.mixcloud.com/search/?q="+ term.replace(' ', '+') +"&type=user").then(function (response) {          
-          console.log(response);
-
           return response.data;
         });
       }
@@ -120,8 +93,6 @@ angular.module('starter.services', [])
 
       if (!promise) {
         promise = $http.get("https://api.mixcloud.com/"+ username +"/cloudcasts/").then(function (response) {          
-          console.log(response);
-
           return response.data;
         });
       }
