@@ -97,4 +97,21 @@ angular.module('starter.services', [])
             return promise;
         }
     };
+})
+
+.factory("Settings", function(){
+    var settings = JSON.parse(window.localStorage.getItem("settings")) || {};
+
+    return {
+        get: function(setting){
+            if(!settings[setting]){
+                this.set(setting, false);
+            }
+            return settings[setting];
+        },
+        set: function(setting, value){
+            settings[setting] = value;
+            window.localStorage.setItem("settings", JSON.stringify(settings));
+        }
+    };
 });

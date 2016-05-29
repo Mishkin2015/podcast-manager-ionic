@@ -100,8 +100,19 @@ angular.module('starter.controllers', [])
     });
 })
 
-.controller('SettingsCtrl', function($scope) {
+.controller('SettingsCtrl', function($scope, Settings) {
     $scope.settings = {
-        enableSomething: true
+        dark: Settings.get("dark")
     };
+
+    $scope.$watch("settings.dark", function(){
+        var link = document.getElementById("theme");
+        if($scope.settings.dark){
+            Settings.set("dark", true);
+            link.setAttribute("href", "css/ionic.app.css");
+        }else{
+            Settings.set("dark", false);
+            link.setAttribute("href", "lib/ionic/css/ionic.css");
+        }
+    });
 });

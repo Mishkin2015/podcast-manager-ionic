@@ -1,17 +1,22 @@
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, Settings) {
     $ionicPlatform.ready(function() {
-
         if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
             cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
             cordova.plugins.Keyboard.disableScroll(true);
-
         }
         if (window.StatusBar) {
             StatusBar.styleDefault();
         }
     });
+
+    var link = document.getElementById("theme");
+    if(Settings.get("dark")){
+        link.setAttribute("href", "css/ionic.app.css");
+    }else{
+        link.setAttribute("href", "lib/ionic/css/ionic.css");
+    }
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
