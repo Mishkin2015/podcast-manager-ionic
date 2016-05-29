@@ -63,8 +63,8 @@ angular.module('starter.controllers', [])
         for(var i=0; i<response.data.length; i++){
             response.data[i].downloaded = false;
             for(var j=0; j<downloads.length; j++){
-                if(response.data[i].username == podcasts[j].username){
-                    response.data[i].downloads = true;
+                if(response.data[i].slug == downloads[j].slug){
+                    response.data[i].downloaded = true;
                     break;
                 }
             }
@@ -79,8 +79,8 @@ angular.module('starter.controllers', [])
         Downloads.set(episode);
     };
 
-    $scope.delete = function(episodeId){
-        Downloads.remove(episodeId);
+    $scope.delete = function(episode){
+        Downloads.remove(episode);
     }
 })
 

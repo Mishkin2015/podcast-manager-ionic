@@ -9,7 +9,11 @@ angular.module('starter.services', [])
             return downloads;
         },
         remove: function(episode) {
-            downloads.splice(downloads.indexOf(episode), 1);
+            for(var i=0; i<downloads.length; i++){
+                if(downloads[i].slug == episode.slug){
+                    downloads.splice(downloads.indexOf(downloads[i]), 1);
+                }
+            }
             window.localStorage.setItem("downloads", JSON.stringify(downloads));
         },
         get: function(episodeId) {
