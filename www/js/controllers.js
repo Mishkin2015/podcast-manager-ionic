@@ -27,22 +27,29 @@ angular.module('starter.controllers', [])
   $ionicLoading.show({template: 'Loading...'});
 
   Podcasts.searchPodcast($stateParams.term).then(function(response){
+    var podcasts = Podcasts.allPodcasts();
+    for(var i=0; i<response.data.length; i++){
+      response.data[i].subscribed = false;
+      for(var j=0; j<podcasts.length; j++){
+        if(response.data[i].username == podcasts[j].username){
+          response.data[i].subscribed = true;
+          break;
+        }
+      }
+    }
     $scope.podcasts = response.data;
     $ionicLoading.hide();
-  }); 
-
-  $scope.sub = true;
+  });
 
   $scope.subscribe = function(podcast){
+    podcast.subscribed = true;
     Podcasts.subscribe(podcast);
     $ionicListDelegate.closeOptionButtons();
-    $scope.sub = false;
   }
 
   $scope.unsubscribe = function(podcast){
     Podcasts.unsubscribe(podcast);
     $ionicListDelegate.closeOptionButtons();
-    $scope.sub = true; 
   }
 })
 
