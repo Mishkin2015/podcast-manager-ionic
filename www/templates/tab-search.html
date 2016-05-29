@@ -1,18 +1,18 @@
 <ion-view view-title="Search">
-  <ion-content>
-    <ion-list>
-      <ion-item class="item item-thumbnail-left item-icon-right" ng-repeat="podcast in podcasts" type="item-text-wrap">
-        <img ng-src="{{podcast.pictures.extra_large}}">
-        <h2>{{podcast.name}}</h2>
-        <i class="icon ion-chevron-right icon-accessory"></i>
+    <ion-content>
+        <ion-list>
+            <ion-item class="item item-thumbnail-left item-icon-right" ng-repeat="podcast in podcasts" type="item-text-wrap">
+                <img ng-src="{{podcast.pictures.extra_large}}">
+                <h2>{{podcast.name}}</h2>
+                <i class="icon ion-chevron-right icon-accessory"></i>
 
-        <ion-option-button class="button-balanced" ng-show="!podcast.subscribed" ng-click="podcast.subscribed=!podcast.subscribed; subscribe(podcast)">
-          Subscribe
-        </ion-option-button>
-        <ion-option-button class="button-assertive" ng-show="podcast.subscribed" ng-click="podcast.subscribed=!podcast.subscribed; unsubscribe(podcast)">
-          Unsubscribe
-        </ion-option-button>
-      </ion-item>
-    </ion-list>
-  </ion-content>
+                <ion-option-button class="button-balanced" ng-show="!podcast.subscribed" ng-click="podcast.subscribed=!podcast.subscribed; subscribe(podcast)">
+                    Subscribe
+                </ion-option-button>
+                <ion-option-button class="button-assertive" ng-show="podcast.subscribed" ng-click="podcast.subscribed=!podcast.subscribed; unsubscribe(podcast)">
+                    Unsubscribe
+                </ion-option-button>
+            </ion-item>
+        </ion-list>
+    </ion-content>
 </ion-view>

@@ -1,26 +1,26 @@
 <ion-view view-title="Podcasts">
-  <ion-nav-buttons side="right">
-    <a ng-click="search()">
-      <i class="icon button ion-ios-search"></i>
-    </a>
-  </ion-nav-buttons>
-  <ion-content class="padding">
-    <div class="row" ng-repeat="podcast in podcasts" ng-if="$index % 3 === 0">
-      <div class="col col-33" ng-if="$index < podcasts.length">
-        <a ng-href="#/tab/podcasts/{{podcasts[$index].id}}">
-          <img ng-src="{{podcasts[$index].pictures.extra_large}}" width="100%"/>
+    <ion-nav-buttons side="right">
+        <a ng-click="search()">
+            <i class="icon button ion-ios-search"></i>
         </a>
-      </div>
-      <div class="col col-33" ng-if="$index+1 < podcasts.length">
-        <a ng-href="#/tab/podcasts/{{podcasts[$index+1].id}}">
-          <img ng-src="{{podcasts[$index+1].pictures.extra_large}}" width="100%"/>
-        </a>
-      </div>
-      <div class="col col-33" ng-if="$index+2 < podcasts.length">
-        <a ng-href="#/tab/podcasts/{{podcasts[$index+2].id}}">
-          <img ng-src="{{podcasts[$index+2].pictures.extra_large}}" width="100%"/>
-        </a>
-      </div>
-    </div>
-  </ion-content>
+    </ion-nav-buttons>
+    <ion-content class="padding">
+        <div class="row" ng-repeat="podcast in podcasts" ng-if="$index % 3 === 0">
+            <div class="col col-33" ng-if="$index < podcasts.length">
+                <a ng-href="#/tab/podcasts/{{podcasts[$index].id}}">
+                    <img ng-src="{{podcasts[$index].pictures.extra_large}}" width="100%"/>
+                </a>
+            </div>
+            <div class="col col-33" ng-if="$index+1 < podcasts.length">
+                <a ng-href="#/tab/podcasts/{{podcasts[$index+1].id}}">
+                    <img ng-src="{{podcasts[$index+1].pictures.extra_large}}" width="100%"/>
+                </a>
+            </div>
+            <div class="col col-33" ng-if="$index+2 < podcasts.length">
+                <a ng-href="#/tab/podcasts/{{podcasts[$index+2].id}}">
+                    <img ng-src="{{podcasts[$index+2].pictures.extra_large}}" width="100%"/>
+                </a>
+            </div>
+        </div>
+    </ion-content>
 </ion-view>
