@@ -100,8 +100,8 @@ angular.module('starter.controllers', [])
     });
 })
 
-.controller('AccountCtrl', function($scope) {
+.controller('SettingsCtrl', function($scope) {
     $scope.settings = {
-        enableFriends: true
+        enableSomething: true
     };
 });
