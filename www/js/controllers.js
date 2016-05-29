@@ -53,27 +53,51 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('PodcastEpisodesCtrl', function($scope, $stateParams, $http, $ionicLoading, Podcasts) {
+.controller('PodcastEpisodesCtrl', function($scope, $stateParams, $ionicLoading, Podcasts, Downloads) {
     $scope.podcastId = $stateParams.podcastId;
 
     $ionicLoading.show({template: 'Loading...'});
 
     Podcasts.getEpisodes($stateParams.podcastId).then(function(response){
+        var downloads = Downloads.all();
+        for(var i=0; i<response.data.length; i++){
+            response.data[i].downloaded = false;
+            for(var j=0; j<downloads.length; j++){
+                if(response.data[i].username == podcasts[j].username){
+                    response.data[i].downloads = true;
+                    break;
+                }
+            }
+        }
+
         $scope.episodes = response.data;
         $ionicLoading.hide();
     });
+
+    $scope.download = function(episode){
+        episode.downloaded = true;
+        Downloads.set(episode);
+    };
+
+    $scope.delete = function(episodeId){
+        Downloads.remove(episodeId);
+    }
 })
 
-.controller('ChatsCtrl', function($scope, Chats) {
-    $scope.chats = Chats.all();
+.controller('DownloadsCtrl', function($scope, Downloads) {
+    $scope.downloads = Downloads.all();
 
-    $scope.remove = function(chat) {
-        Chats.remove(chat);
+    $scope.remove = function(episode) {
+        Downloads.remove(episode);
     };
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-    $scope.chat = Chats.get($stateParams.chatId);
+.controller('DownloadDetailCtrl', function($scope, $stateParams, $ionicLoading, Downloads) {
+    $ionicLoading.show({template: 'Loading...'});
+    Downloads.get($stateParams.episodeId).then(function(response){
+        $scope.episode = response;
+        $ionicLoading.hide();
+    });
 })
 
 .controller('AccountCtrl', function($scope) {

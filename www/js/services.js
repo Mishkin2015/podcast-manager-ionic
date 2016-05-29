@@ -1,48 +1,39 @@
 angular.module('starter.services', [])
 
-.factory('Chats', function() {
+.factory('Downloads', function($http) {
 
-    var chats = [{
-        id: 0,
-        name: 'Ben Sparrow',
-        lastText: 'You on your way?',
-        face: 'img/ben.png'
-    }, {
-        id: 1,
-        name: 'Max Lynx',
-        lastText: 'Hey, it\'s me',
-        face: 'img/max.png'
-    }, {
-        id: 2,
-        name: 'Adam Bradleyson',
-        lastText: 'I should buy a boat',
-        face: 'img/adam.jpg'
-    }, {
-        id: 3,
-        name: 'Perry Governor',
-        lastText: 'Look at my mukluks!',
-        face: 'img/perry.png'
-    }, {
-        id: 4,
-        name: 'Mike Harrington',
-        lastText: 'This is wicked good ice cream.',
-        face: 'img/mike.png'
-    }];
+    var downloads = JSON.parse(window.localStorage.getItem("downloads")) || [];
 
     return {
         all: function() {
-            return chats;
+            return downloads;
         },
-        remove: function(chat) {
-            chats.splice(chats.indexOf(chat), 1);
+        remove: function(episode) {
+            downloads.splice(downloads.indexOf(episode), 1);
+            window.localStorage.setItem("downloads", JSON.stringify(downloads));
         },
-        get: function(chatId) {
-            for (var i = 0; i < chats.length; i++) {
-                if (chats[i].id === parseInt(chatId)) {
-                    return chats[i];
+        get: function(episodeId) {
+            var episodeKey = "/";
+            for(var i=0; i<downloads.length; i++){
+                if(downloads[i].id == episodeId){
+                    episodeKey = downloads[i].key;
                 }
             }
-            return null;
+
+            var promise;
+
+            if (!promise) {
+                promise = $http.get("https://api.mixcloud.com" + episodeKey).then(function (response) {
+                    return response.data;
+                });
+            }
+
+            return promise;
+        },
+        set: function(episode){
+            episode.id = downloads.length;
+            downloads.push(episode);
+            window.localStorage.setItem("downloads", JSON.stringify(downloads));
         }
     };
 })
@@ -56,15 +47,10 @@ angular.module('starter.services', [])
             return podcasts;
         },
         unsubscribe: function(podcast){
-            // podcasts.splice(podcasts.indexOf(podcast), 1);
-
             podcasts.splice(podcasts.indexOf(podcast), 1);
             window.localStorage.setItem("podcasts", JSON.stringify(podcasts));
         },
         subscribe: function(podcast){
-            // podcast.id = podcasts.length;
-            // podcasts.push(podcast);
-
             podcast.id = podcasts.length;
             podcasts.push(podcast);
             window.localStorage.setItem("podcasts", JSON.stringify(podcasts));
@@ -89,7 +75,6 @@ angular.module('starter.services', [])
         },
         getEpisodes: function(id){
             var username;
-            console.log(podcasts);
             for(var i=0; i<podcasts.length; i++){
                 if(podcasts[i].id == id){
                     username = podcasts[i].username;
