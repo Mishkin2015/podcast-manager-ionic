@@ -19,7 +19,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     }
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+
+    $ionicConfigProvider.views.transition('ios');
+    $ionicConfigProvider.tabs.style('standard').position('bottom');
+    $ionicConfigProvider.navBar.alignTitle('center').positionPrimaryButtons('left');
+
     $stateProvider
 
     .state('tab', {
